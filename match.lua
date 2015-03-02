@@ -78,10 +78,14 @@ local function move( event )
                     display.getCurrentStage():setFocus( nil )
                     event.target.isFocus = false
                     if hasCollided(event.target,rects[1]) then
-                    
+
+                    if event.target.tag == rects[1].group then
                     math.randomseed( os.time() )
 					local n = math.random(#levels)
+					event.target:removeSelf()
+					rects[1]:removeSelf()
                     composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+                    end
                     end
     	end
     end
@@ -103,6 +107,7 @@ function scene:show( event )
         addRect(100,100,199,199,"sdfsdfsdfsdf","asdasdasd")
         
         local images = display.newImage("Icon.png")
+        images.tag = "asdasdasd"
         images:addEventListener( "touch", move )
         
     end 
