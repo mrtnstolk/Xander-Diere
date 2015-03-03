@@ -12,6 +12,7 @@ local composer = require( "composer" )
 local scene = composer.newScene( sceneName )
 
 local images = {}
+local shadow = {}
 
 local animals = {1,2,3,4,5}
 local markX
@@ -94,6 +95,16 @@ local margin = display.contentWidth*0.10
 				end
 			end
 		end
+		
+		--Check tint
+		for i=1,#animals do
+			if shadow[i].tag == animals[i] then
+				shadow[i]:setFillColor( 0, 0.9, 0 )
+				else
+				shadow[i]:setFillColor( 0, 0, 0 )
+				end
+				
+		end
 
 end
 
@@ -115,6 +126,11 @@ end
 if correct then
 math.randomseed( os.time() )
 					local n = math.random(#levels)
+					
+for i=1,#animals do
+shadow[i]:removeSelf()
+shadow[i] = nil
+end
 					
 composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
 end
@@ -167,6 +183,20 @@ function scene:show( event )
         local rand = math.random(5)
         
         for i=1,#animals do
+        shadow[i] = display.newImage("shadow.png")
+        if kleinnagroot == false then
+        x = #animals+1 - i
+        else
+        x = i
+        end
+        
+        shadow[i]:scale(x/15,x/15)
+        shadow[i].x = margin + position*(i-1)
+        shadow[i].y = display.contentHeight/2 + display.contentHeight/4
+        shadow[i].tag = x
+        end
+        
+        for i=1,#animals do
         images[i] = display.newImage(rand .. ".png")
         images[i]:scale(animals[i]/40,animals[i]/40)
         images[i].x = margin + position*(i-1)
@@ -174,6 +204,15 @@ function scene:show( event )
         images[i].tag = animals[i]
         images[i]:addEventListener( "touch", move )
         end       
+        
+        for i=1,#animals do
+			if shadow[i].tag == animals[i] then
+				shadow[i]:setFillColor( 0, 0.9, 0 )
+				else
+				shadow[i]:setFillColor( 0, 0, 0 )
+				end
+				
+		end
         
         
     end 
