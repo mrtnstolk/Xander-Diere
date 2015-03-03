@@ -112,6 +112,8 @@ local function move( event )
 						for ii=1,#rects do
 							rects[ii]:removeSelf()
 							rects[ii].text:removeSelf()
+							rects[ii].text = nil
+							rects[ii] = nil
 						end
                     	composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
                     end
