@@ -14,6 +14,7 @@ local scene = composer.newScene( sceneName )
 local images = {}
 local top = {}
 local bottom = {}
+local line = {}
 
 local animals = {1,2,3,4,5}
 local markX
@@ -157,6 +158,11 @@ function scene:show( event )
         images[i].tag = animals[i]
         images[i]:addEventListener( "touch", move )
         end
+        
+        line = display.newLine( -display.contentWidth, display.contentHeight-display.contentHeight/3, display.contentWidth*2, display.contentHeight-display.contentHeight/3 )
+        line.strokeWidth = 4
+        line.stroke.effect = "generator.marchingAnts"
+        line:setStrokeColor(0.81,0,0.435)
         
     end 
 end
