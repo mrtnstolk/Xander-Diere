@@ -15,6 +15,7 @@ local images = {}
 
 local animals = {1,2,3,4,5}
 local markX
+local kleinnagroot =  (math.random(1, 10) > 5)
 
 local levels = {"match", "matchcol", "patrone", "rangskik"}
 
@@ -100,8 +101,14 @@ local function CheckComplete()
 local correct = true
 for i=2,#animals,1 do
 
+if kleinnagroot == true then
 	if animals[i-1] > animals[i] then
 		correct = false
+	end
+	else
+	if animals[i-1] < animals[i] then
+		correct = false
+	end
 	end
 end
 
