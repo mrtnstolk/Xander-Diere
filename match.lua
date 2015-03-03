@@ -15,12 +15,14 @@ local scene = composer.newScene( sceneName )
 
 local nextSceneButton
 
-local t1 = {image="Icon.png",group=1}
+local t1 = {image="Icon.png",group="1"}
+local t2 = {image="Icon.png",group="1"}
 local rects = {}
 --local c1 = display.newRect( 10, 10, 199, 199 )
 --c1.group = 1
-
+local icons = {t1, t2}
 local levels = {"match", "matchcol", "patrone", "rangskik"}
+local images = {}
 
 function scene:create( event )
     local sceneGroup = self.view
@@ -77,16 +79,45 @@ local function move( event )
               -- here the focus is removed from the last position
                     display.getCurrentStage():setFocus( nil )
                     event.target.isFocus = false
-                    if hasCollided(event.target,rects[1]) then
+                    
+                    for x=1,#rects do
+                    if hasCollided(event.target,rects[x]) then
 
-                    if event.target.tag == rects[1].group then
+                    if event.target.group == rects[x].group then
                     math.randomseed( os.time() )
 					local n = math.random(#levels)
+					local g = event.target.group
 					event.target:removeSelf()
-					rects[1]:removeSelf()
-                    composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+					event.target = nil
+					
+					local nextlv = true
+					
+					for i=1,#images do
+					if images[i] ~= nil then
+						if images[i].group == g then
+							images[i] = nil
+							break
+						end
+					end
+					end
+					
+					for i=1,#images do
+					print(images[i])
+						if images[i] ~= nil then
+							nextlv = false
+							end
+					end
+					
+					if nextlv == true then
+						for ii=1,#rects do
+							rects[ii]:removeSelf()
+							rects[ii].text:removeSelf()
+						end
+                    	composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
                     end
                     end
+                end
+            end
     	end
     end
     
@@ -104,11 +135,13 @@ function scene:show( event )
         -- 
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
-        addRect(100,100,199,199,"sdfsdfsdfsdf","asdasdasd")
+        addRect(100,100,199,199,"Icon","1")
         
-        local images = display.newImage("Icon.png")
-        images.tag = "asdasdasd"
-        images:addEventListener( "touch", move )
+        for i=1, #icons do
+		images[i] = display.newImage(icons[i].image)
+        images[i].group = icons[i].group
+        images[i]:addEventListener( "touch", move )
+        end
         
     end 
 end
