@@ -61,11 +61,11 @@ local min = {}
 for ii=1,#animals,1 do
 
 for x=1,#animals,1 do
-if table.contains(animaltemp,images[x].tag) then
-else
-min = images[x]
-break
-end
+	if table.contains(animaltemp,images[x].tag) then
+	else
+		min = images[x]
+		break
+	end
 end
 
 	for i=1,#animals,1 do
@@ -77,9 +77,22 @@ end
 		end
 	end
 	animaltemp[ii] = min.tag
+	
 end
 
 animals = animaltemp
+
+local margin = display.contentWidth*0.10
+        local position = display.contentWidth*0.2
+        print("----------")
+        for i=1,#animals do
+        	--We need to move 
+        	for y=1,#animals do
+        	if (images[y].tag == animals[i]) then
+				transition.to( images[y], { time=500, x=margin + position*(i-1) } )
+				end
+			end
+		end
 
 end
 
