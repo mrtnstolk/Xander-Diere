@@ -190,6 +190,8 @@ function scene:hide( event )
         bottom[i]:removeSelf()
         end  
         
+        line:removeSelf()
+        
 		if nextSceneButton then
 			nextSceneButton:removeEventListener( "touch", nextSceneButton )
 		end
