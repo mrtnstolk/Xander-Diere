@@ -19,6 +19,9 @@ local line = {}
 local animals = {1,2,3,4,5}
 local markX
 local pattern = {}
+local n1 = {}
+local n2 = {}
+local n3 = {}
 
 local levels = {"match", "matchcol", "patrone", "rangskik"}
 
@@ -37,9 +40,26 @@ local function shuffleTable( t )
 end
 
 local function choosePattern()
-for i=1,3,1 do
-pattern[i] = math.random(5)
-end
+n1 = math.random(5)
+
+repeat
+n2 = math.random(5) 
+until n1 ~= n2
+
+
+n3 = math.random(5)
+
+p1 = {n1, n1, n1, n1, n1}
+p2 = {n1, n1, n2, n1, n1}
+p3 = {n1, n2, n1, n2, n1}
+p4 = {n1, n2, n3, n1, n2}
+p5 = {n1, n2, n2, n1, n2}
+p6 = {n1, n1, n2, n2, n1}
+pp = {p1,p2,p3,p4,p5,p6}
+
+pattern = pp[math.random(6)]
+
+--pattern[4] = pattern[1]
 end
 
 ---------------------------------------------------------------------------------
@@ -64,7 +84,7 @@ function table.contains(table, element)
 end
 
 local function CheckComplete()
-local needed = pattern[3]
+local needed = pattern[5]
 
 print(images[needed].x)
 
@@ -136,8 +156,9 @@ function scene:show( event )
         
         for i=1,#pattern do
         top[i] = display.newImage(pattern[i] .. ".png")
+        top[i].alpha = 0
         top[i]:scale(0.05,0.05)
-        top[i].x = margin + position*(i-1)*5/3
+        top[i].x = margin + position*(i-1)*5/3/2
         top[i].y = display.contentHeight/3-display.contentHeight/6
         top[i].tag = animals[pattern[i]]
         end    
@@ -145,7 +166,7 @@ function scene:show( event )
         for i=1,#pattern-1 do
         bottom[i] = display.newImage(pattern[i] .. ".png")
         bottom[i]:scale(0.05,0.05)
-        bottom[i].x = margin + position*(i-1)*5/3
+        bottom[i].x = margin + position*(i-1)*5/3/2
         bottom[i].y = display.contentHeight*2/3-display.contentHeight/6
         bottom[i].tag = animals[pattern[i]]
         end     
