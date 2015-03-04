@@ -112,6 +112,8 @@ local function NextLv(event)
  math.randomseed( os.time() )
 					local n = math.random(#levels)
  composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+ imgx:removeSelf()
+ imgx = nil
 end
 
 local function CheckComplete()
@@ -137,6 +139,11 @@ for i=1,#animals do
 shadow[i]:removeSelf()
 shadow[i] = nil
 end
+
+imgx = display.newImage("X1.png")
+imgx:scale(0.2,0.2)
+imgx.x = display.contentWidth/2
+imgx.y = display.contentHeight-imgx.contentHeight/2
 					
 timer.performWithDelay(1000,NextLv)
 end

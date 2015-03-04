@@ -42,6 +42,8 @@ rects[#rects].text:setFillColor( 1, 0, 0 )
 end
 
 local function NextLv(event)
+imgx:removeSelf()
+imgx = nil
  math.randomseed( os.time() )
 					local n = math.random(#levels)
  composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
@@ -120,6 +122,11 @@ local function move( event )
                     			rects[ii]:removeSelf()
                     			rects[ii] = nil
                     			end
+                    			
+                    			imgx = display.newImage("X1.png")
+imgx:scale(0.2,0.2)
+imgx.x = display.contentWidth/2
+imgx.y = display.contentHeight-imgx.contentHeight/2
                     			
                     			timer.performWithDelay(1000,NextLv)
                     				break

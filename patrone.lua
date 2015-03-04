@@ -84,6 +84,8 @@ function table.contains(table, element)
 end
 
 local function NextLv(event)
+imgx:removeSelf()
+imgx = nil
  math.randomseed( os.time() )
 					local n = math.random(#levels)
  composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
@@ -102,6 +104,10 @@ if images[needed].x > margin + position*(3-1)*5/3 - margin and
  images[needed].y > display.contentHeight*2/3-display.contentHeight/6 - margin and
  images[needed].y < display.contentHeight*2/3-display.contentHeight/6 + margin then
  
+ imgx = display.newImage("X1.png")
+imgx:scale(0.2,0.2)
+imgx.x = display.contentWidth/2
+imgx.y = display.contentHeight-imgx.contentHeight/2
  timer.performWithDelay(1000,NextLv)
 
  end
