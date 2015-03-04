@@ -83,6 +83,12 @@ function table.contains(table, element)
   return false
 end
 
+local function NextLv(event)
+ math.randomseed( os.time() )
+					local n = math.random(#levels)
+ composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+end
+
 local function CheckComplete()
 local needed = pattern[5]
 
@@ -96,9 +102,8 @@ if images[needed].x > margin + position*(3-1)*5/3 - margin and
  images[needed].y > display.contentHeight*2/3-display.contentHeight/6 - margin and
  images[needed].y < display.contentHeight*2/3-display.contentHeight/6 + margin then
  
- math.randomseed( os.time() )
-					local n = math.random(#levels)
- composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+ timer.performWithDelay(1000,NextLv)
+
  end
 --images[needed].x = margin + position*(3-1)*5/3
   --      images[needed].y = display.contentHeight*2/3-display.contentHeight/6

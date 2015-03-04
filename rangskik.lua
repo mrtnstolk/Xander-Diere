@@ -108,6 +108,12 @@ local margin = display.contentWidth*0.10
 
 end
 
+local function NextLv(event)
+ math.randomseed( os.time() )
+					local n = math.random(#levels)
+ composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+end
+
 local function CheckComplete()
 local correct = true
 for i=2,#animals,1 do
@@ -132,7 +138,7 @@ shadow[i]:removeSelf()
 shadow[i] = nil
 end
 					
-composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+timer.performWithDelay(1000,NextLv)
 end
 end
 

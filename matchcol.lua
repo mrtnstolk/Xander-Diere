@@ -41,6 +41,12 @@ rects[#rects].text = display.newText(text,x,y, native.systemFont, 16 )
 rects[#rects].text:setFillColor( 1, 0, 0 )
 end
 
+local function NextLv(event)
+ math.randomseed( os.time() )
+					local n = math.random(#levels)
+ composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+end
+
 local function hasCollided( obj1, obj2 )
    if ( obj1 == nil ) then  --make sure the first object exists
       return false
@@ -115,9 +121,7 @@ local function move( event )
                     			rects[ii] = nil
                     			end
                     			
-                    			math.randomseed( os.time() )
-									local n = math.random(#levels)
-                    				composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+                    			timer.performWithDelay(1000,NextLv)
                     				break
                     			end
                     			

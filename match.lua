@@ -56,6 +56,12 @@ local function hasCollided( obj1, obj2 )
    return (left or right) and (up or down)
 end
 
+local function NextLv(event)
+ math.randomseed( os.time() )
+					local n = math.random(#levels)
+ composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+end
+
 local function move( event )
     if event.phase == "began" then
 		
@@ -121,7 +127,7 @@ local function move( event )
 							images[ii]:removeSelf()
 							images[ii] = nil
 						end
-                    	composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+                    	timer.performWithDelay(1000,NextLv)
                     end
                     end
                 end
