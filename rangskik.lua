@@ -8,6 +8,10 @@ local sceneName = ...
 
 local composer = require( "composer" )
 
+local speech = {"Puik.", "Fantasties.", "Jy is 'n slimkop.", "Mooi so."}
+local dialog = {}
+local speechtext = {}
+
 -- Load scene with same root filename as this file
 local scene = composer.newScene( sceneName )
 
@@ -114,6 +118,12 @@ local function NextLv(event)
  composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
  imgx:removeSelf()
  imgx = nil
+ 
+ dialog:removeSelf()
+ dialog = nil
+ 
+ speechtext:removeSelf()
+ speechtext = nil
 end
 
 local function CheckComplete()
@@ -144,6 +154,19 @@ imgx = display.newImage("X1.png")
 imgx:scale(0.2,0.2)
 imgx.x = display.contentWidth/2
 imgx.y = display.contentHeight-imgx.contentHeight/2
+
+dialog = display.newImage("speech.png")
+dialog:scale(-0.2,0.1)
+dialog.x = display.contentWidth/2 - dialog.contentWidth/2 - imgx.contentWidth/2
+dialog.y = display.contentHeight-imgx.contentHeight/2
+
+math.randomseed( os.time() )
+local rand = math.random (#speech)
+
+speechtext = display.newText(speech[rand], dialog.x, dialog.y, native.systemFont, 16 )
+speechtext.align = "center"
+speechtext.x = dialog.x - dialog.contentWidth/10 
+speechtext:setFillColor(0,0,0)
 					
 timer.performWithDelay(1000,NextLv)
 end

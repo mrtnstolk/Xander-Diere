@@ -3,6 +3,9 @@
 -- scene.lua
 --
 ---------------------------------------------------------------------------------
+local speech = {"Puik.", "Fantasties.", "Jy is 'n slimkop.", "Mooi so."}
+local dialog = {}
+local speechtext = {}
 
 local sceneName = ...
 
@@ -86,6 +89,13 @@ end
 local function NextLv(event)
 imgx:removeSelf()
 imgx = nil
+
+dialog:removeSelf()
+ dialog = nil
+ 
+ speechtext:removeSelf()
+ speechtext = nil
+ 
  math.randomseed( os.time() )
 					local n = math.random(#levels)
  composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
@@ -108,6 +118,20 @@ if images[needed].x > margin + position*(3-1)*5/3 - margin and
 imgx:scale(0.2,0.2)
 imgx.x = display.contentWidth/2
 imgx.y = display.contentHeight-imgx.contentHeight/2
+
+dialog = display.newImage("speech.png")
+dialog:scale(-0.2,0.1)
+dialog.x = display.contentWidth/2 - dialog.contentWidth/2 - imgx.contentWidth/2
+dialog.y = display.contentHeight-imgx.contentHeight/2
+
+math.randomseed( os.time() )
+local rand = math.random (#speech)
+
+speechtext = display.newText(speech[rand], dialog.x, dialog.y, native.systemFont, 16 )
+speechtext.align = "center"
+speechtext.x = dialog.x - dialog.contentWidth/10 
+speechtext:setFillColor(0,0,0)
+
  timer.performWithDelay(1000,NextLv)
 
  end
