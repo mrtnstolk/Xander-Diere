@@ -22,7 +22,7 @@ local nextSceneButton
 local t1 = {image="Icon.png",group=1}
 local rects = {}
 
-local cols = {"brown.png", "pink.png", "yellow.png", "blue.png", "white.png"}
+local cols = {"brown.png", "pink.png", "yellow.png", "blue.png", "white.png", "green.png", "gray.png", "red.png"}
 --local c1 = display.newRect( 10, 10, 199, 199 )
 --c1.group = 1
 local images = {}

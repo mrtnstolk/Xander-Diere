@@ -23,7 +23,7 @@ local scene = composer.newScene( sceneName )
 local nextSceneButton
 
 local t1 = {image="Icon.png",group="1"}
-local t2 = {image="Icon.png",group="2"}
+local t2 = {image="Icon.png",group="1"}
 local rects = {}
 --local c1 = display.newRect( 10, 10, 199, 199 )
 --c1.group = 1
