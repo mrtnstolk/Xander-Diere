@@ -16,7 +16,7 @@ local scene = composer.newScene( sceneName )
 local nextSceneButton
 
 local t1 = {image="Icon.png",group="1"}
-local t2 = {image="Icon.png",group="1"}
+local t2 = {image="Icon.png",group="2"}
 local rects = {}
 --local c1 = display.newRect( 10, 10, 199, 199 )
 --c1.group = 1
@@ -93,52 +93,58 @@ local function move( event )
                     if hasCollided(event.target,rects[x]) then
 
                     if event.target.group == rects[x].group then
-                    math.randomseed( os.time() )
-					local n = math.random(#levels)
-					local g = event.target.group
-					event.target:removeSelf()
-					event.target = nil
+                    	math.randomseed( os.time() )
+						local n = math.random(#levels)
+						local g = event.target.group
+						event.target:removeSelf()
+						event.target = nil
 					
-					local nextlv = true
+						local nextlv = true
 					
-					for i=1,#images do
-					if images[i] ~= nil then
-						if images[i].group == g then
-							images[i] = nil
-							break
-						end
-					end
-					end
-					
-					for i=1,#images do
-					print(images[i])
-						if images[i] ~= nil then
-							nextlv = false
+						for i=1,#images do
+							if images[i] ~= nil then
+								if images[i].group == g then
+									images[i] = nil
+									break
+								end
 							end
-					end
+						end
 					
-					if nextlv == true then
-						for ii=1,#rects do
-							rects[ii]:removeSelf()
-							rects[ii].text:removeSelf()
-							rects[ii].text = nil
-							rects[ii] = nil
-							rects = {}
+						for i=1,#images do
+							print(images[i])
+								if images[i] ~= nil then
+									nextlv = false
+								end
 						end
+					
+						if nextlv == true then
+							for ii=1,#rects do
+								rects[ii]:removeSelf()
+								rects[ii].text:removeSelf()
+								rects[ii].text = nil
+								rects[ii] = nil
+								rects = {}
+							end
 						
-						for ii=1,#images do
-							images[ii]:removeSelf()
-							images[ii] = nil
-						end
+							for ii=1,#images do
+								images[ii]:removeSelf()
+								images[ii] = nil
+							end
 						
-						imgx = display.newImage("X1.png")
-imgx:scale(0.2,0.2)
-imgx.x = display.contentWidth/2
-imgx.y = display.contentHeight-imgx.contentHeight/2
+							imgx = display.newImage("X1.png")
+							imgx:scale(0.2,0.2)
+							imgx.x = display.contentWidth/2
+							imgx.y = display.contentHeight-imgx.contentHeight/2
 
-                    	timer.performWithDelay(1000,NextLv)
+                    		timer.performWithDelay(1000,NextLv)
+                    	end
+                    	else
+                    	event.target.x = event.target.prevx
+                    	event.target.y = event.target.prevy
                     end
-                    end
+                    else
+                    	event.target.x = event.target.prevx
+                    	event.target.y = event.target.prevy
                 end
             end
     	end
@@ -163,6 +169,8 @@ function scene:show( event )
         for i=1, #icons do
 		images[i] = display.newImage(icons[i].image)
         images[i].group = icons[i].group
+        images[i].prevx = x
+        images[i].prevy = y
         images[i]:addEventListener( "touch", move )
         end
         
