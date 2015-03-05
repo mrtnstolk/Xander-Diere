@@ -12,6 +12,8 @@ local speech = {"Puik.", "Fantasties.", "Jy is 'n slimkop.", "Mooi so."}
 local dialog = {}
 local speechtext = {}
 
+local instructionsset = {"Rangskik die diere van groot na klein.","Rangskik die diere van klein na groot"}
+
 -- Load scene with same root filename as this file
 local scene = composer.newScene( sceneName )
 
@@ -21,6 +23,8 @@ local shadow = {}
 local animals = {1,2,3,4,5}
 local markX
 local kleinnagroot =  (math.random(1, 10) > 5)
+
+local instruction = instructionsset[kleinnagroot+1]
 
 local levels = {"match", "matchcol", "patrone", "rangskik"}
 

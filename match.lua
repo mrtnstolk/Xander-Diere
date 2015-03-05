@@ -8,6 +8,9 @@ local speech = {"Puik.", "Fantasties.", "Jy is 'n slimkop.", "Mooi so."}
 local dialog = {}
 local speechtext = {}
 
+local instructionsset = {"Groepeer al die diertjies wat in 'n huis woon","Groepeer al die diertjies wat in die see woon","Groepeer al die diertjies wat kan vlieg"}
+local instruction = instructionsset[1]
+
 local sceneName = ...
 
 local composer = require( "composer" )
