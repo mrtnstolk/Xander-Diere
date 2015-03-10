@@ -59,6 +59,45 @@ end
 
 ---------------------------------------------------------------------------------
 
+local function soundplay(event)
+if ( event.phase == "began" ) then
+
+        elseif ( event.phase == "moved" ) then
+            print( "moved phase" )
+
+        elseif ( event.phase == "ended" or event.phase == "cancelled" ) then
+            media.playSound(animals[current].sound)
+        end
+
+    return true
+end
+
+local function speechplay(event)
+if ( event.phase == "began" ) then
+
+        elseif ( event.phase == "moved" ) then
+            print( "moved phase" )
+
+        elseif ( event.phase == "ended" or event.phase == "cancelled" ) then
+            media.playSound(animals[current].speech)
+        end
+
+    return true
+end
+
+local function tohome(event)
+if ( event.phase == "began" ) then
+
+        elseif ( event.phase == "moved" ) then
+            print( "moved phase" )
+
+        elseif ( event.phase == "ended" or event.phase == "cancelled" ) then
+            composer.gotoScene( "scene1", { effect = "fade", time = 300 } )
+        end
+
+    return true
+end
+
 local nextSceneButton
 
 function scene:create( event )
@@ -123,6 +162,9 @@ function scene:show( event )
 		voice:scale(0.4,0.4)
 		voice.y = voice.y + voice.contentHeight/2
 		voice.x = display.contentWidth
+		voice:addEventListener( "touch", speechplay )
+		home:addEventListener( "touch", tohome )
+		sound:addEventListener( "touch", soundplay )
     end 
 end
 

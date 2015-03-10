@@ -13,7 +13,7 @@ local Gesture = require("lib_gesture")
 local scene = composer.newScene( sceneName )
 local images = {}
 local texts = {}
-local current = 0
+local current = 1
 
 local home = {}
 local sound = {}
@@ -43,6 +43,14 @@ local animals = {t1,t2,t3,t4,t5,t6}
 print(images[1])
 
 math.randomseed( os.time() )
+
+local enterAnimal = function(obj)
+for i=1, #images do 
+	texts[i].alpha = 0
+end
+
+	transition.to(texts[current], {delay = 500, time = 500, alpha = 1, onComplete=media.playSound(animals[current].speech)})
+end
 
 local function shuffleTable( t )
     local rand = math.random 
@@ -82,6 +90,32 @@ if ( event.phase == "began" ) then
     return true
 end
 
+local function speechplay(event)
+if ( event.phase == "began" ) then
+
+        elseif ( event.phase == "moved" ) then
+            print( "moved phase" )
+
+        elseif ( event.phase == "ended" or event.phase == "cancelled" ) then
+            media.playSound(animals[current].speech)
+        end
+
+    return true
+end
+
+local function tohome(event)
+if ( event.phase == "began" ) then
+
+        elseif ( event.phase == "moved" ) then
+            print( "moved phase" )
+
+        elseif ( event.phase == "ended" or event.phase == "cancelled" ) then
+            composer.gotoScene( "scene1", { effect = "fade", time = 300 } )
+        end
+
+    return true
+end
+
 function scene:show( event )
     local sceneGroup = self.view
     local phase = event.phase
@@ -111,6 +145,8 @@ function scene:show( event )
         	print(texts[i].text)
         end
         
+        texts[1].alpha = 1
+        
         home = display.newImage("home.png")
         home:scale(0.4,0.4)
         home.y = home.y + home.contentHeight/2
@@ -122,6 +158,11 @@ function scene:show( event )
 		voice:scale(0.4,0.4)
 		voice.y = voice.y + voice.contentHeight/2
 		voice.x = display.contentWidth
+		voice:addEventListener( "touch", speechplay )
+		home:addEventListener( "touch", tohome )
+		sound:addEventListener( "touch", soundplay )
+		
+		enterAnimal()
     end 
 end
 
@@ -136,6 +177,29 @@ function scene:hide( event )
         -- e.g. stop timers, stop animation, unload sounds, etc.)
     elseif phase == "did" then
         -- Called when the scene is now off screen
+        
+        if home then
+        home:removeSelf()
+        home = nil
+        voice:removeSelf()
+        voice = nil
+        sound:removeSelf()
+        sound = nil
+        end
+        
+        for i=1, #animals do 
+        if images[i] then
+        	sceneGroup:remove(images[i])
+        	images[i]:removeSelf()
+        	images[i]:removeEventListener( "touch", soundplay)
+        	images[i] = nil
+        	
+        	--sceneGroup:remove(text[i])
+        	texts[i]:removeSelf() 
+        	texts[i] = nil
+        	end
+        end
+        
 		if nextSceneButton then
 			nextSceneButton:removeEventListener( "touch", nextSceneButton )
 		end
@@ -168,14 +232,6 @@ local function Update(event)
 			SwipeLeft()
 			end
 	end
-end
-
-local enterAnimal = function(obj)
-for i=1, #images do 
-	texts[i].alpha = 0
-end
-
-	transition.to(texts[current], {delay = 500, time = 500, alpha = 1, onComplete=media.playSound(animals[current].speech)})
 end
 
 function SwipeRight()
