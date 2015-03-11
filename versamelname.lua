@@ -103,6 +103,35 @@ if ( event.phase == "began" ) then
     return true
 end
 
+local function RemoveStuffies()
+        home:removeSelf()
+        home = nil
+        voice:removeSelf()
+        voice = nil
+        sound:removeSelf()
+        sound = nil
+        
+        media.stopSound()
+        
+        local count = #animals
+        
+        for i=1, count do 
+        if images[i] then
+        	--sceneGroup:remove(images[i])
+        	--images[i].alpha = 0
+        	--images[i]:removeEventListener( "touch", soundplay)
+        --	images[i].alpha = 0
+        	images[i]:removeSelf()
+        	images[i] = nil
+        	
+        	--sceneGroup:remove(text[i])
+        --	texts[i].alpha = 0
+        	texts[i]:removeSelf() 
+        	texts[i] = nil
+        	end
+        	end
+end
+
 local function tohome(event)
 if ( event.phase == "began" ) then
 
@@ -110,7 +139,9 @@ if ( event.phase == "began" ) then
             print( "moved phase" )
 
         elseif ( event.phase == "ended" or event.phase == "cancelled" ) then
+        RemoveStuffies()
             composer.gotoScene( "scene1", { effect = "fade", time = 300 } )
+            
         end
 
     return true
@@ -127,6 +158,7 @@ function scene:show( event )
         -- 
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
+        
         shuffleTable(animals)
         
         current = #animals
@@ -175,35 +207,16 @@ function scene:hide( event )
         --
         -- INSERT code here to pause the scene
         -- e.g. stop timers, stop animation, unload sounds, etc.)
+        
+        
     elseif phase == "did" then
         -- Called when the scene is now off screen
-        
-        if home then
-        home:removeSelf()
-        home = nil
-        voice:removeSelf()
-        voice = nil
-        sound:removeSelf()
-        sound = nil
-        end
-        
-        for i=1, #animals do 
-        if images[i] then
-        	sceneGroup:remove(images[i])
-        	images[i]:removeSelf()
-        	images[i]:removeEventListener( "touch", soundplay)
-        	images[i] = nil
-        	
-        	--sceneGroup:remove(text[i])
-        	texts[i]:removeSelf() 
-        	texts[i] = nil
-        	end
-        end
         
 		if nextSceneButton then
 			nextSceneButton:removeEventListener( "touch", nextSceneButton )
 		end
-    end 
+		
+	end 
 end
 
 

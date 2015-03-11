@@ -18,6 +18,7 @@ local klankeButton
 local familieButton
 local versamelnameButton
 local NotebookButton
+local ns = false
 
 local levels = {"match", "matchcol", "patrone", "rangskik"}
 
@@ -33,6 +34,8 @@ end
 function scene:show( event )
     local sceneGroup = self.view
     local phase = event.phase
+    
+    ns = false
 
     if phase == "will" then
         -- Called when the scene is still off screen and is about to move on screen
@@ -54,9 +57,12 @@ function scene:show( event )
         	function gameButton:touch ( event )
         		local phase = event.phase
         		if "ended" == phase then
+        		if ns == false then
+        				ns = true
         			math.randomseed( os.time() )
 					local n = math.random(#levels)
         			composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
+        			end
         		end
         	end
         	-- add the touch event listener to the button
@@ -68,7 +74,10 @@ function scene:show( event )
         	function klankeButton:touch ( event )
         		local phase = event.phase
         		if "ended" == phase then
+        		if ns == false then
+        				ns = true
         			composer.gotoScene( "klanke", { effect = "fade", time = 300 } )
+        			end
         		end
         	end
         	-- add the touch event listener to the button
@@ -80,7 +89,10 @@ function scene:show( event )
         	function familieButton:touch ( event )
         		local phase = event.phase
         		if "ended" == phase then
+        		if ns == false then
+        				ns = true
         			composer.gotoScene( "dierefamilie", { effect = "fade", time = 300 } )
+        			end
         		end
         	end
         	-- add the touch event listener to the button
@@ -92,7 +104,11 @@ function scene:show( event )
         	function versamelnameButton:touch ( event )
         		local phase = event.phase
         		if "ended" == phase then
-        			composer.gotoScene( "versamelname", { effect = "fade", time = 300 } )
+        		
+        			if ns == false then
+        				ns = true
+        				composer.gotoScene( "versamelname", { effect = "fade", time = 300 } )
+        			end
         		end
         	end
         	-- add the touch event listener to the button
@@ -104,7 +120,10 @@ function scene:show( event )
         	function NotebookButton:touch ( event )
         		local phase = event.phase
         		if "ended" == phase then
+        		if ns == false then
+        				ns = true
         			composer.gotoScene( "notebook", { effect = "fade", time = 300 } )
+        			end
         		end
         	end
         	-- add the touch event listener to the button
