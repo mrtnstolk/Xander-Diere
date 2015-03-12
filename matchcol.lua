@@ -106,6 +106,7 @@ local function move( event )
                     			local tag = event.target.tag
                     			print(tag)
                     			event.target:removeSelf()
+                    			event.target = nil
                     			
                     			rects[i].alpha = 0
                     			rects[i].text.alpha = 0
@@ -118,9 +119,9 @@ local function move( event )
                     			
                     			local dont = false
                     			
-                    			for ii=1,#cols,1 do
+                    			for ii=1,#rects,1 do
                     			--print(images[ii].tag)
-                    				if images[ii] ~= nil then
+                    				if rects[ii].alpha ~= 0 then
                     					dont = true
                     				end
                     			
@@ -129,9 +130,21 @@ local function move( event )
                     			
                     			if dont == false then
                     			
-                    			for ii=1,#cols,1 do
+                    			local c = #rects
+                    			
+                    			for ii=1,c,1 do
                     			rects[ii]:removeSelf()
                     			rects[ii] = nil
+                    			end
+                    			
+                    			local d = #images
+                    			
+                    			for x=1,d do
+                    			if images[x] ~= nil then
+                    			--print(x..images[x])
+                    			images[x]:removeSelf()
+                    			images[x] = nil
+                    			end
                     			end
                     			
                     			imgx = display.newImage("X1.png")
@@ -188,7 +201,7 @@ function scene:show( event )
         for i=1,#cols,1 do
         images[i] = display.newImage(cols[i])
         images[i]:scale(0.05,0.05)
-        images[i].x = margin + position*(i-1)
+        images[i].x = margin/4 + position*(i-1)/1.5
         images[i].y = display.contentHeight-display.contentHeight/6
         images[i].tag = cols[i]
         images[i]:addEventListener( "touch", move )

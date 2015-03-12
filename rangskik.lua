@@ -24,7 +24,7 @@ local animals = {1,2,3,4,5}
 local markX
 local kleinnagroot =  (math.random(1, 10) > 5)
 
-local instruction = instructionsset[kleinnagroot+1]
+local instruction = instructionsset[(kleinnagroot and 1 or 0)+1]
 
 local levels = {"match", "matchcol", "patrone", "rangskik"}
 

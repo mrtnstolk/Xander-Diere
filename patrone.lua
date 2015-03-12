@@ -66,7 +66,6 @@ pattern = pp[math.random(6)]
 end
 
 ---------------------------------------------------------------------------------
-
 local nextSceneButton
 function scene:create( event )
     local sceneGroup = self.view
@@ -198,6 +197,9 @@ function scene:show( event )
         top[i].tag = animals[pattern[i]]
         end    
         
+        rect = display.newRect(display.contentWidth/2,display.contentHeight/6,display.contentWidth*2,display.contentHeight/3)
+        rect:setFillColor( 0.5 )
+        
         for i=1,#pattern-1 do
         bottom[i] = display.newImage(pattern[i] .. ".png")
         bottom[i]:scale(0.05,0.05)
@@ -210,15 +212,16 @@ function scene:show( event )
         images[i] = display.newImage(i .. ".png")
         images[i]:scale(0.05,0.05)
         images[i].x = margin + position*(i-1)
-        images[i].y = display.contentHeight-display.contentHeight/6
+        images[i].y = images[i].contentHeight/2*1.33 --display.contentHeight - display.contentHeight/6
         images[i].tag = animals[i]
         images[i]:addEventListener( "touch", move )
         end
         
-        line = display.newLine( -display.contentWidth, display.contentHeight-display.contentHeight/3, display.contentWidth*2, display.contentHeight-display.contentHeight/3 )
-        line.strokeWidth = 4
-        line.stroke.effect = "generator.marchingAnts"
-        line:setStrokeColor(0.81,0,0.435)
+        
+        --line = display.newLine( -display.contentWidth, display.contentHeight-display.contentHeight/3, display.contentWidth*2, display.contentHeight-display.contentHeight/3 )
+        --line.strokeWidth = 4
+        --line.stroke.effect = "generator.marchingAnts"
+        --line:setStrokeColor(0.81,0,0.435)
         
     end 
 end
@@ -246,7 +249,8 @@ function scene:hide( event )
         bottom[i]:removeSelf()
         end  
         
-        line:removeSelf()
+        --line:removeSelf()
+        rect:removeSelf()
         
 		if nextSceneButton then
 			nextSceneButton:removeEventListener( "touch", nextSceneButton )
