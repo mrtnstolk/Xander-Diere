@@ -190,7 +190,7 @@ function scene:show( event )
         -- 
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
-        addRect(100,100,199,199,"Icon","1")
+        addRect(display.contentWidth/4*0.8,display.contentHeight/2,display.contentWidth/2*1.33,display.contentHeight,"Icon","1")
         
         for i=1, #icons do
 		images[i] = display.newImage(icons[i].image)

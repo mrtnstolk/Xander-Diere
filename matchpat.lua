@@ -6,6 +6,10 @@
 
 local sceneName = ...
 
+local speech = {"Puik.", "Fantasties.", "Jy is 'n slimkop.", "Mooi so."}
+local dialog = {}
+local speechtext = {}
+
 local composer = require( "composer" )
 
 -- Load scene with same root filename as this file
@@ -18,10 +22,12 @@ local nextSceneButton
 local t1 = {image="Icon.png",group=1}
 local rects = {}
 
-local cols = {"brown.png", "pink.png", "yellow.png", "blue.png", "white.png"}
+local cols = {"brown.png", "pink.png", "yellow.png", "blue.png", "white.png", "green.png", "gray.png", "red.png"}
 --local c1 = display.newRect( 10, 10, 199, 199 )
 --c1.group = 1
 local images = {}
+
+local levels = {"match", "matchcol", "patrone", "rangskik"}
 
 function scene:create( event )
     local sceneGroup = self.view
@@ -37,6 +43,21 @@ rects[#rects+1] = display.newRect(x,y,w,h)
 rects[#rects].group = group
 rects[#rects].text = display.newText(text,x,y, native.systemFont, 16 )
 rects[#rects].text:setFillColor( 1, 0, 0 )
+end
+
+local function NextLv(event)
+imgx:removeSelf()
+imgx = nil
+
+dialog:removeSelf()
+ dialog = nil
+ 
+ speechtext:removeSelf()
+ speechtext = nil
+ 
+ math.randomseed( os.time() )
+					local n = math.random(#levels)
+ composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
 end
 
 local function hasCollided( obj1, obj2 )
@@ -78,13 +99,76 @@ local function move( event )
               -- here the focus is removed from the last position
                     display.getCurrentStage():setFocus( nil )
                     event.target.isFocus = false
-                    for i=1,#images,1 do
+                    for i=1,#cols,1 do
                     	if hasCollided(event.target,rects[i]) then
                     		if event.target.tag == rects[i].group then
                     			event.target.alpha = 0
+                    			local tag = event.target.tag
+                    			print(tag)
+                    			event.target:removeSelf()
+                    			event.target = nil
+                    			
                     			rects[i].alpha = 0
                     			rects[i].text.alpha = 0
-                    			break
+                    			--rects[i]:removeSelf()
+                    			rects[i].text:removeSelf()
+                    			print(rects[i].group)
+                    			if rects[i].group == tag then
+                    				images[i] = nil
+                    			end
+                    			
+                    			local dont = false
+                    			
+                    			for ii=1,#rects,1 do
+                    			--print(images[ii].tag)
+                    				if rects[ii].alpha ~= 0 then
+                    					dont = true
+                    				end
+                    			
+                    			
+                    			end
+                    			
+                    			if dont == false then
+                    			
+                    			local c = #rects
+                    			
+                    			for ii=1,c,1 do
+                    			rects[ii]:removeSelf()
+                    			rects[ii] = nil
+                    			end
+                    			
+                    			local d = #images
+                    			
+                    			for x=1,d do
+                    			if images[x] ~= nil then
+                    			--print(x..images[x])
+                    			images[x]:removeSelf()
+                    			images[x] = nil
+                    			end
+                    			end
+                    			
+                    			imgx = display.newImage("X1.png")
+imgx:scale(0.2,0.2)
+imgx.x = display.contentWidth/2
+imgx.y = display.contentHeight-imgx.contentHeight/2
+
+dialog = display.newImage("speech.png")
+dialog:scale(-0.2,0.1)
+dialog.x = display.contentWidth/2 - dialog.contentWidth/2 - imgx.contentWidth/2
+dialog.y = display.contentHeight-imgx.contentHeight/2
+
+math.randomseed( os.time() )
+local rand = math.random (#speech)
+
+speechtext = display.newText(speech[rand], dialog.x, dialog.y, native.systemFont, 16 )
+speechtext.align = "center"
+speechtext.x = dialog.x - dialog.contentWidth/10 
+speechtext:setFillColor(0,0,0)
+                    			
+                    			timer.performWithDelay(1000,NextLv)
+                    				break
+                    			end
+                    			
                     		end
                     	end
                     end
@@ -105,7 +189,11 @@ function scene:show( event )
         -- 
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
-        addRect(100,100,199,199,"sdfsdfsdfsdf","pink.png")
+        addRect(100,100,50,50,"pink","pink.png")
+        addRect(300,300,50,50,"brown","brown.png")
+        addRect(200,200,50,50,"yellow","yellow.png")
+        addRect(100,300,50,50,"blue","blue.png")
+        addRect(200,100,50,50,"white","white.png")
         
         local margin = display.contentWidth*0.10
         local position = display.contentWidth*0.2
@@ -113,7 +201,7 @@ function scene:show( event )
         for i=1,#cols,1 do
         images[i] = display.newImage(cols[i])
         images[i]:scale(0.05,0.05)
-        images[i].x = margin + position*(i-1)
+        images[i].x = margin/4 + position*(i-1)/1.5
         images[i].y = display.contentHeight-display.contentHeight/6
         images[i].tag = cols[i]
         images[i]:addEventListener( "touch", move )
@@ -138,7 +226,6 @@ function scene:hide( event )
 		end
     end 
 end
-
 
 function scene:destroy( event )
     local sceneGroup = self.view
