@@ -22,8 +22,8 @@ local nextSceneButton
 local t1 = {image="Icon.png",group=1}
 local rects = {}
 
-local cols = {"brown.png", "pink.png", "yellow.png", "blue.png", "white.png", "green.png", "gray.png", "red.png"}
-local anims = {"beepat.png", "fishpat.png", "giraffepat.png", "snakepat.png"}
+local cols = {"patternbee.png", "patternfish.png", "patterngir.png", "patternsnake.png", "patternzebra.png"}
+local anims = {"beepat.png", "fishpat.png", "giraffepat.png", "snakepat.png", "zebrapat.png"}
 --local c1 = display.newRect( 10, 10, 199, 199 )
 --c1.group = 1
 local images = {}
@@ -42,20 +42,16 @@ end
 function addRect(x,y,w,h,text,group)
 
 if group == "" then
-	if text == "browncol.png" then
-		group = "brown.png"
-	elseif text == "yellowcol.png" then
-		group = "yellow.png"
-	elseif text == "pinkcol.png" then
-		group = "pink.png"
-	elseif text == "bluecol.png" then
-		group = "blue.png"
-	elseif text == "whitecol.png" then
-		group = "white.png"
-	elseif text == "greencol.png" then
-		group = "green.png"
-	elseif text == "redcol.png" then
-		group = "red.png"
+	if text == "beepat.png" then
+		group = "patternbee.png"
+	elseif text == "fishpat.png" then
+		group = "patternfish.png"
+	elseif text == "giraffepat.png" then
+		group = "patterngir.png"
+	elseif text == "snakepat.png" then
+		group = "patternsnake.png"
+	elseif text == "zebrapat.png" then
+		group = "patternzebra.png"
 	end
 
 end

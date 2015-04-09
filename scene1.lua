@@ -62,7 +62,7 @@ function scene:show( event )
         			math.randomseed( os.time() )
 					local n = math.random(#levels)
         			--composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
-        			composer.gotoScene( "familymatch", { effect = "fade", time = 300 } )
+        			composer.gotoScene( "matchpat", { effect = "fade", time = 300 } )
         			end
         		end
         	end
