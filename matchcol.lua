@@ -23,6 +23,7 @@ local t1 = {image="Icon.png",group=1}
 local rects = {}
 
 local cols = {"brown.png", "pink.png", "yellow.png", "blue.png", "white.png", "green.png", "gray.png", "red.png"}
+local anims = {"browncol.png", "pinkcol.png", "yellowcol.png", "bluecol.png", "whitecol.png", "greencol.png", "redcol.png"}
 --local c1 = display.newRect( 10, 10, 199, 199 )
 --c1.group = 1
 local images = {}
@@ -39,9 +40,32 @@ function scene:create( event )
 end
 
 function addRect(x,y,w,h,text,group)
-rects[#rects+1] = display.newRect(x,y,w,h)
+
+if group == "" then
+	if text == "browncol.png" then
+		group = "brown.png"
+	elseif text == "yellowcol.png" then
+		group = "yellow.png"
+	elseif text == "pinkcol.png" then
+		group = "pink.png"
+	elseif text == "bluecol.png" then
+		group = "blue.png"
+	elseif text == "whitecol.png" then
+		group = "white.png"
+	elseif text == "greencol.png" then
+		group = "green.png"
+	elseif text == "redcol.png" then
+		group = "red.png"
+	end
+
+end
+
+rects[#rects+1] = display.newImage(text)-- Rect(x,y,w,h)
+rects[#rects].x = x;
+rects[#rects].y = y;
+rects[#rects]:scale(0.04,0.04)
 rects[#rects].group = group
-rects[#rects].text = display.newText(text,x,y, native.systemFont, 16 )
+rects[#rects].text = display.newText(text,x,y, native.systemFont, 1 )
 rects[#rects].text:setFillColor( 1, 0, 0 )
 end
 
@@ -140,11 +164,11 @@ local function move( event )
                     			local d = #images
                     			
                     			for x=1,d do
-                    			if images[x] ~= nil then
-                    			--print(x..images[x])
-                    			images[x]:removeSelf()
-                    			images[x] = nil
-                    			end
+                    				if images[x] ~= nil then
+                    					images[x].alpha = 0
+                    					--images[x]:removeSelf()
+                    					--images[x] = nil
+                    				end
                     			end
                     			
                     			imgx = display.newImage("X1.png")
@@ -178,6 +202,20 @@ speechtext:setFillColor(0,0,0)
     return true
 end
 
+math.randomseed( os.time() )
+
+local function shuffleTable( t )
+    local rand = math.random 
+    assert( t, "shuffleTable() expected a table, got nil" )
+    local iterations = #t
+    local j
+    
+    for i = iterations, 2, -1 do
+        j = rand(i)
+        t[i], t[j] = t[j], t[i]
+    end
+end
+
 function scene:show( event )
     local sceneGroup = self.view
     local phase = event.phase
@@ -186,14 +224,17 @@ function scene:show( event )
         -- Called when the scene is still off screen and is about to move on screen
     elseif phase == "did" then
         -- Called when the scene is now on screen
+        
+        shuffleTable(anims)
+        
+        for i=1,4 do
+        print(anims[i])
+        	addRect(50*i+display.contentWidth/10*i, 100,50,50, anims[i],"")
+        end
         -- 
         -- INSERT code here to make the scene come alive
         -- e.g. start timers, begin animation, play audio, etc
-        addRect(100,100,50,50,"pink","pink.png")
-        addRect(300,300,50,50,"brown","brown.png")
-        addRect(200,200,50,50,"yellow","yellow.png")
-        addRect(100,300,50,50,"blue","blue.png")
-        addRect(200,100,50,50,"white","white.png")
+
         
         local margin = display.contentWidth*0.10
         local position = display.contentWidth*0.2

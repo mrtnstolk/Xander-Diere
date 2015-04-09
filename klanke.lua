@@ -32,18 +32,15 @@ function Groep:new (text, image, sound, speech)
   return o
 end
 
-local t1 = {text="‘n Vis blup",image="1.png",sound="s1r1.mp3",speech="s1r1.mp3"}
-local t2 = {text="‘n Voël kwetter",image="2.png",sound="s1r1.mp3",speech="s1r1.mp3"}
-local t3 = {text="‘n By zoom",image="3.png",sound="s1r1.mp3",speech="s1r1.mp3"}
-local t4 = {text="‘n Vark ...",image="4.png",sound="s1r1.mp3",speech="s1r1.mp3"}
-local t5 = {text="‘n Skaap blêr",image="5.png",sound="s1r1.mp3",speech="s1r1.mp3"}
-local t6 = {text="‘n Hoender kraai",image="6.png",sound="s1r1.mp3",speech="s1r1.mp3"}
-local t7 = {text="‘n Bees bulk",image="8.png",sound="s1r1.mp3",speech="s1r1.mp3"}
-local t8 = {text="‘n Perd runnik",image="9.png",sound="s1r1.mp3",speech="s1r1.mp3"}
-local t9 = {text="‘n Hond blaf",image="10.png",sound="s1r1.mp3",speech="s1r1.mp3"}
-local t10 = {text="‘n Kat meow",image="11.png",sound="s1r1.mp3",speech="s1r1.mp3"}
+local t2 = {text="‘n Voël kwetter",image="bird.png",sound="s1r1.mp3",speech="s1r1.mp3"}
+local t5 = {text="‘n Skaap blêr",image="sheep.png",sound="s1r1.mp3",speech="s1r1.mp3"}
+local t6 = {text="‘n Hoender kraai",image="chicken.png",sound="s1r1.mp3",speech="s1r1.mp3"}
+local t7 = {text="‘n Bees bulk",image="cow.png",sound="s1r1.mp3",speech="s1r1.mp3"}
+local t8 = {text="‘n Perd runnik",image="horse.png",sound="s1r1.mp3",speech="s1r1.mp3"}
+local t9 = {text="‘n Hond blaf",image="dog.png",sound="s1r1.mp3",speech="s1r1.mp3"}
+local t10 = {text="‘n Kat meow",image="cat.png",sound="s1r1.mp3",speech="s1r1.mp3"}
 
-local animals = {t1,t2,t3,t4,t5,t6, t7, t8,t9,t10}
+local animals = {t2,t5,t6, t7, t8,t9,t10}
 print(images[1])
 
 math.randomseed( os.time() )
@@ -147,7 +144,7 @@ function scene:show( event )
         	sceneGroup:insert(images[i])
         	
         	texts[i] = display.newText( animals[i].text, display.contentWidth/2 + display.contentWidth*(current-i), images[i].y + images[i].contentHeight, native.systemFont, 16 )
-        	texts[i].y = texts[i].y - texts[i].contentHeight
+        	texts[i].y = display.contentHeight*0.9
         	texts[i].alpha = 0
         	sceneGroup:insert(texts[i])
         	print(texts[i].text)

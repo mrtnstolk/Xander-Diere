@@ -10,6 +10,7 @@ local speechtext = {}
 
 local instructionsset = {"Groepeer al die diertjies wat in 'n huis woon","Groepeer al die diertjies wat in die see woon","Groepeer al die diertjies wat kan vlieg"}
 local instruction = instructionsset[1]
+local numb = 1
 
 local sceneName = ...
 
@@ -22,12 +23,35 @@ local scene = composer.newScene( sceneName )
 
 local nextSceneButton
 
-local t1 = {image="Icon.png",group="1"}
-local t2 = {image="Icon.png",group="1"}
+local t1, t2, t3, t4, t5, t6; -- = {image="Icon.png",group="1"}
+--local t2 = {image="Icon.png",group="1"}
+if numb == 1 then
+t1 = {image="H1.png",group="1"}
+t2 = {image="H2.png",group="1"}
+t3 = {image="H3.png",group="1"}
+t4 = {image="H4.png",group="2"}
+t5 = {image="H5.png",group="2"}
+t6 = {image="H6.png",group="2"}
+elseif numb == 2 then
+t1 = {image="S1.png",group="1"}
+t2 = {image="S2.png",group="1"}
+t3 = {image="S3.png",group="1"}
+t4 = {image="S4.png",group="2"}
+t5 = {image="S5.png",group="2"}
+t6 = {image="S6.png",group="2"}
+else
+t1 = {image="F1.png",group="1"}
+t2 = {image="F2.png",group="1"}
+t3 = {image="F3.png",group="1"}
+t4 = {image="F4.png",group="2"}
+t5 = {image="F5.png",group="2"}
+t6 = {image="F6.png",group="2"}
+end
+
 local rects = {}
 --local c1 = display.newRect( 10, 10, 199, 199 )
 --c1.group = 1
-local icons = {t1, t2}
+local icons = {t1, t2, t3, t4, t5, t6}
 local levels = {"match", "matchcol", "patrone", "rangskik"}
 local images = {}
 
@@ -125,7 +149,7 @@ local function move( event )
 					
 						for i=1,#images do
 							print(images[i])
-								if images[i] ~= nil then
+								if images[i] ~= nil and images[i].group == "1" then
 									nextlv = false
 								end
 						end
@@ -140,8 +164,10 @@ local function move( event )
 							end
 						
 							for ii=1,#images do
+							if images[ii] ~= nil then
 								images[ii]:removeSelf()
 								images[ii] = nil
+								end
 							end
 						
 							imgx = display.newImage("X1.png")
@@ -194,9 +220,16 @@ function scene:show( event )
         
         for i=1, #icons do
 		images[i] = display.newImage(icons[i].image)
+		
+		local x = display.contentWidth*0.9
+		local y = 50*i
+		
         images[i].group = icons[i].group
+        images[i].x = x
+        images[i].y = y
         images[i].prevx = x
         images[i].prevy = y
+        images[i]:scale(0.05,0.05)
         images[i]:addEventListener( "touch", move )
         end
         

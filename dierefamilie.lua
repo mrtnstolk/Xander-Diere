@@ -32,7 +32,7 @@ function Groep:new (text, image, sound, speech)
   return o
 end
 
-local t1 = {text="Koei, Bul, Kalf",image="1.png",sound="s1r1.mp3",speech="s1r1.mp3"}
+local t1 = {text="Koei, Bul, Kalf",image="1.png",sound="s1r1.mp3",speech="s1r1.mp3"} --m,f,c
 local t2 = {text="Hen, Haan, Kuiken",image="2.png",sound="s1r1.mp3",speech="s1r1.mp3"}
 local t3 = {text="Ram, Ooi, Lam",image="3.png",sound="s1r1.mp3",speech="s1r1.mp3"}
 local t4 = {text="Hings, Merrie, Vulletjie",image="4.png",sound="s1r1.mp3",speech="s1r1.mp3"}

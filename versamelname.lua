@@ -32,12 +32,12 @@ function Groep:new (text, image, sound, speech)
   return o
 end
 
-local t1 = {text="Skool Visse",image="1.png",sound="Bubbles.mp3",speech="s1r1.mp3"}
-local t2 = {text="Kudde Beeste",image="2.png",sound="Cow.mp3",speech="s1r1.mp3"}
-local t3 = {text="Swerm Bye",image="3.png",sound="Bee.mp3",speech="s1r1.mp3"}
-local t4 = {text="Werpsel Varkies",image="4.png",sound="Pig.mp3",speech="s1r1.mp3"}
-local t5 = {text="Trop Skape",image="5.png",sound="Sheep.mp3",speech="s1r1.mp3"}
-local t6 = {text="Broeisel Kuikens",image="6.png",sound="Chicks.mp3",speech="s1r1.mp3"}
+local t1 = {text="'n Skool Visse",image="1.png",sound="Bubbles.mp3",speech="s1r1.mp3"}
+local t2 = {text="'n Kudde Beeste",image="2.png",sound="Cow.mp3",speech="s1r1.mp3"}
+local t3 = {text="'n Swerm Bye",image="3.png",sound="Bee.mp3",speech="s1r1.mp3"}
+local t4 = {text="'n Werpsel Varke",image="4.png",sound="Pig.mp3",speech="s1r1.mp3"}
+local t5 = {text="'n Trop Skape",image="5.png",sound="Sheep.mp3",speech="s1r1.mp3"}
+local t6 = {text="'n Broeisel hoenders",image="6.png",sound="Chicks.mp3",speech="s1r1.mp3"}
 
 local animals = {t1,t2,t3,t4,t5,t6}
 print(images[1])

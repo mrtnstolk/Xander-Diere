@@ -19,7 +19,7 @@ local top = {}
 local bottom = {}
 local line = {}
 
-local animals = {1,2,3,4,5}
+local animals = {1,2,3,4,5,6,7}
 local markX
 local pattern = {}
 local n1 = {}
@@ -191,7 +191,7 @@ function scene:show( event )
         for i=1,#pattern do
         top[i] = display.newImage(pattern[i] .. ".png")
         top[i].alpha = 0
-        top[i]:scale(0.05,0.05)
+        top[i]:scale(0.04,0.04)
         top[i].x = margin + position*(i-1)*5/3/2
         top[i].y = display.contentHeight/3-display.contentHeight/6
         top[i].tag = animals[pattern[i]]
@@ -202,7 +202,7 @@ function scene:show( event )
         
         for i=1,#pattern-1 do
         bottom[i] = display.newImage(pattern[i] .. ".png")
-        bottom[i]:scale(0.05,0.05)
+        bottom[i]:scale(0.04,0.04)
         bottom[i].x = margin + position*(i-1)*5/3/2
         bottom[i].y = display.contentHeight*2/3-display.contentHeight/6
         bottom[i].tag = animals[pattern[i]]
@@ -210,8 +210,8 @@ function scene:show( event )
         
         for i=1,#animals,1 do
         images[i] = display.newImage(i .. ".png")
-        images[i]:scale(0.05,0.05)
-        images[i].x = margin + position*(i-1)
+        images[i]:scale(0.04,0.04)
+        images[i].x = margin/40 + position*(i-1)
         images[i].y = images[i].contentHeight/2*1.33 --display.contentHeight - display.contentHeight/6
         images[i].tag = animals[i]
         images[i]:addEventListener( "touch", move )

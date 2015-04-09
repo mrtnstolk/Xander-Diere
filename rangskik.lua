@@ -220,7 +220,7 @@ function scene:show( event )
         local margin = display.contentWidth*0.10
         local position = display.contentWidth*0.2
         
-        local rand = math.random(5)
+        local rand = math.random(7)
         
         for i=1,#animals do
         shadow[i] = display.newImage("shadow.png")
@@ -238,7 +238,7 @@ function scene:show( event )
         
         for i=1,#animals do
         images[i] = display.newImage(rand .. ".png")
-        images[i]:scale(animals[i]/40,animals[i]/40)
+        images[i]:scale(animals[i]/100,animals[i]/100)
         images[i].x = margin + position*(i-1)
         images[i].y = display.contentHeight/2
         images[i].tag = animals[i]
