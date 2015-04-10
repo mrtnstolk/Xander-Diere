@@ -26,7 +26,7 @@ local n1 = {}
 local n2 = {}
 local n3 = {}
 
-local levels = {"match", "matchcol", "patrone", "rangskik"}
+local levels = {"match", "matchcol", "patrone", "rangskik", "matchpat", "familymatch"}
 
 math.randomseed( os.time() )
 
@@ -132,7 +132,13 @@ speechtext.x = dialog.x - dialog.contentWidth/10
 speechtext:setFillColor(0,0,0)
 
  timer.performWithDelay(1000,NextLv)
+else
 
+for i=1,#images do
+print("asdasdasd")
+images[i].x = images[i].prevx
+images[i].y = images[i].prevy
+end
  end
 --images[needed].x = margin + position*(3-1)*5/3
   --      images[needed].y = display.contentHeight*2/3-display.contentHeight/6
@@ -214,6 +220,8 @@ function scene:show( event )
         images[i].x = margin/40 + position*(i-1)
         images[i].y = images[i].contentHeight/2*1.33 --display.contentHeight - display.contentHeight/6
         images[i].tag = animals[i]
+        images[i].prevx = images[i].x
+        images[i].prevy = images[i].y
         images[i]:addEventListener( "touch", move )
         end
         

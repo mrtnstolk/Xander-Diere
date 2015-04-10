@@ -26,7 +26,7 @@ local kleinnagroot =  (math.random(1, 10) > 5)
 
 local instruction = instructionsset[(kleinnagroot and 1 or 0)+1]
 
-local levels = {"match", "matchcol", "patrone", "rangskik"}
+local levels = {"match", "matchcol", "patrone", "rangskik", "matchpat", "familymatch"}
 
 math.randomseed( os.time() )
 

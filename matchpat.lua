@@ -28,7 +28,7 @@ local anims = {"beepat.png", "fishpat.png", "giraffepat.png", "snakepat.png", "z
 --c1.group = 1
 local images = {}
 
-local levels = {"match", "matchcol", "patrone", "rangskik"}
+local levels = {"match", "matchcol", "patrone", "rangskik", "matchpat", "familymatch"}
 
 function scene:create( event )
     local sceneGroup = self.view
@@ -133,9 +133,10 @@ local function move( event )
                     			--rects[i]:removeSelf()
                     			rects[i].text:removeSelf()
                     			print(rects[i].group)
-                    			if rects[i].group == tag then
-                    				images[i] = nil
-                    			end
+                    			--if rects[i].group == tag then
+                    			--images[i]:removeSelf()
+                    			--	images[i] = nil
+                    			--end
                     			
                     			local dont = false
                     			
@@ -157,9 +158,9 @@ local function move( event )
                     			rects[ii] = nil
                     			end
                     			
-                    			local d = #images
+                    			local d = #cols
                     			
-                    			for x=1,d do
+                    			for x=d,1,-1 do
                     				if images[x] ~= nil then
                     					images[x].alpha = 0
                     					--images[x]:removeSelf()

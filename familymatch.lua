@@ -28,7 +28,7 @@ local anims = {"pigs.png", "hens.png","sheepfam.png","cowfam.png"}
 --c1.group = 1
 local images = {}
 
-local levels = {"match", "matchcol", "patrone", "rangskik"}
+local levels = {"match", "matchcol", "patrone", "rangskik", "matchpat", "familymatch"}
 
 function scene:create( event )
     local sceneGroup = self.view

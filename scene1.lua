@@ -20,7 +20,7 @@ local versamelnameButton
 local NotebookButton
 local ns = false
 
-local levels = {"match", "matchcol", "patrone", "rangskik"}
+local levels = {"match", "matchcol", "patrone", "rangskik", "matchpat", "familymatch"}
 
 function scene:create( event )
     local sceneGroup = self.view
@@ -62,7 +62,7 @@ function scene:show( event )
         			math.randomseed( os.time() )
 					local n = math.random(#levels)
         			--composer.gotoScene( levels[n], { effect = "fade", time = 300 } )
-        			composer.gotoScene( "matchpat", { effect = "fade", time = 300 } )
+        			composer.gotoScene( "patrone", { effect = "fade", time = 300 } )
         			end
         		end
         	end

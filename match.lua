@@ -52,7 +52,7 @@ local rects = {}
 --local c1 = display.newRect( 10, 10, 199, 199 )
 --c1.group = 1
 local icons = {t1, t2, t3, t4, t5, t6}
-local levels = {"match", "matchcol", "patrone", "rangskik"}
+local levels = {"match", "matchcol", "patrone", "rangskik", "matchpat", "familymatch"}
 local images = {}
 
 function scene:create( event )
@@ -229,7 +229,7 @@ function scene:show( event )
         images[i].y = y
         images[i].prevx = x
         images[i].prevy = y
-        images[i]:scale(0.05,0.05)
+        images[i]:scale(0.025,0.025)
         images[i]:addEventListener( "touch", move )
         end
         
